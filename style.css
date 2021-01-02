@@ -59,10 +59,11 @@ h2{
     color:rgb(68, 70, 80);
 }
 
-.main{
+main {
     display: flex;
-    flex-wrap:wrap;
-}
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
 .movie{
     width:300px;
