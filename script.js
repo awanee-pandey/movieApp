@@ -4,8 +4,7 @@ const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=f3d4f4ca45
 
 const form =document.getElementById('form');
 const search = document.getElementById('search');
-const main = document.getElementById('main')
-console.log(main)
+const main = document.getElementById('main');
 
 /* Get initial movies */
 getMovies(API_URL);
@@ -26,7 +25,7 @@ function showMovies(movies){
         <img src="${IMG_PATH + poster_path}" alt = "${title}">
                 <div class="movie-info">
                     <h3>${title}</h3>
-                    <span class="${getClassByRate}">${vote_average}</span>
+                    <span class="${getClassByRate(vote_average)}">${vote_average}</span>
                 </div>
                 <div class="overview">
                     <h3>${overview}</h3>
@@ -37,7 +36,7 @@ function showMovies(movies){
     })
 }
 
-function getClassByRate(){
+function getClassByRate(vote){
     if(vote>=8) return 'green';
     else if(vote>=5) return 'orange';
     else return 'red';
