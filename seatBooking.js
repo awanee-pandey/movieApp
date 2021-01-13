@@ -1,13 +1,27 @@
 'use strict'
-const container = document.querySelector('.container')
+const API_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=f3d4f4ca4536d171e6f9dc515f21707e';
 
+const container = document.querySelector('.container')
 const movies = document.getElementById('movie')
 const seats = document.querySelectorAll('.row .seat:not(.occupied)');
-
 const count = document.getElementById('count');
 const total = document.getElementById('total');
 
+/* Get initial movies */
+getMovies(API_URL);
+async function getMovies(url){
+    const res = await fetch(url)
+    const data = await res.json()
+    showMovies(data.results);
+    const movieInfo = data.results;
+}
 populateUI();
+/* function showMovies(movies){
+movies.forEach((movie)=>{
+    const{title,vote_average} = movie;
+    console.log(title,vote_average)
+})
+} */
 
 let ticketPrice = + movies.value;
 // console.log(typeof ticketPrice);

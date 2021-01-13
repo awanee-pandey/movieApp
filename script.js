@@ -13,7 +13,6 @@ async function getMovies(url){
     const data = await res.json()
     showMovies(data.results);
     const movieInfo = data.results;
-    
 }
 
 function showMovies(movies){
