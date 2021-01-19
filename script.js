@@ -11,8 +11,17 @@ getMovies(API_URL);
 async function getMovies(url){
     const res = await fetch(url)
     const data = await res.json()
-    showMovies(data.results);
     const movieInfo = data.results;
+    showMovies(movieInfo);
+    const newMovieInfo = getDesiredMovieInfo(movieInfo);
+    localStorage.setItem('desiredMovieInfo', JSON.stringify(newMovieInfo));
+}
+
+const getDesiredMovieInfo = function(movies){
+    return movies.map((movie)=>({
+        title: movie.original_title,
+        rating: movie.vote_average,
+    }))
 }
 
 function showMovies(movies){
@@ -32,7 +41,13 @@ function showMovies(movies){
                     <h3>${overview}</h3>
                     <p></p>
                 </div>
-        `
+        `;
+        movieEL.addEventListener('click',function(){
+            location.href = 'seatBooking.html';
+            localStorage.setItem('clickedMovied',JSON.stringify(movie));
+        })
+
+
         main.appendChild(movieEL);
     })
 }

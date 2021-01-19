@@ -7,24 +7,21 @@ const seats = document.querySelectorAll('.row .seat:not(.occupied)');
 const count = document.getElementById('count');
 const total = document.getElementById('total');
 
+localStorage.removeItem('selectedSeats');
+
+// Get data From Local Storage
+const desiredMovieInfo = JSON.parse(localStorage.getItem('desiredMovieInfo'));
+console.log(desiredMovieInfo);
+
 /* Get initial movies */
 getMovies(API_URL);
 async function getMovies(url){
     const res = await fetch(url)
     const data = await res.json()
-    showMovies(data.results);
-    const movieInfo = data.results;
 }
 populateUI();
-/* function showMovies(movies){
-movies.forEach((movie)=>{
-    const{title,vote_average} = movie;
-    console.log(title,vote_average)
-})
-} */
 
 let ticketPrice = + movies.value;
-// console.log(typeof ticketPrice);
 
 /* Save selected movie index and price */
 function setMovieData(movieIndex,moviePrice){
@@ -87,3 +84,26 @@ container.addEventListener('click', e=>{
 
 /* Initial count and total set  */
 updateSelectedCount();
+
+
+const clickedMovie = JSON.parse(localStorage.getItem('clickedMovied'));
+console.log(clickedMovie);
+// Populate the movies in drop-down
+const showMoviesList = function () {
+  const dropDown = document.getElementById('movie');
+    dropDown.innerHTML ='';
+    desiredMovieInfo.forEach((movie) => {
+        if (movie.title === clickedMovie.original_title) {
+          dropDown.innerHTML += `<option value=${movie.rating} selected>
+            ${movie.title} ($${Math.ceil(movie.rating * 1.5)})
+          </option>`;
+        } else {
+          dropDown.innerHTML += `<option value=${movie.rating}>${
+            movie.title
+          } ($${Math.ceil(movie.rating * 1.5)})</option>`;
+        }
+      });
+    };
+    
+showMoviesList(desiredMovieInfo);
+
